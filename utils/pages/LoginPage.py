@@ -1,23 +1,46 @@
+from utils.data.login_data import LOGIN_FAILED
 from utils.pages.BasePage import BasePage
 from utils.locators.login_locators import *
 
 
 class LoginPage(BasePage):
 
-    def login(self):
-        pass
+    def login(self, email, password):
+        """
+        Type email and password, Click the submit button to perform login action
+        :return: None
+        """
+        self._set_email(email)
+        self._set_password(password)
+        self.find_element(self.driver, "ID", SUBMIT).click()
 
     def signup(self):
-        pass
+        """
+        Click the signup button
+        :return:
+        """
+        self.find_element(self.driver, "ID", SIGNUP).click()
 
-    def set_email(self):
-        pass
+    def _set_email(self, email: str):
+        """
+        Fill the email field
+        :param email
+        :return:
+        """
+        self.find_element(self.driver, "ID", EMAIL).clear()
+        self.find_element(self.driver, "ID", EMAIL).send_keys(email)
 
-    def set_password(self):
-        pass
+    def _set_password(self, password: str):
+        """
+        Fill the password field
+        :param password:
+        :return:
+        """
+        self.find_element(self.driver, "ID", PASSWORD).clear()
+        self.find_element(self.driver, "ID", PASSWORD).send_keys(password)
 
     def title(self):
         return self.driver.title
 
-    def error(self):
-        return self.find_element(self.driver, "ID", ERROR)
+    def is_login_failed(self):
+        return self.find_element(self.driver, "ID", ERROR).text == LOGIN_FAILED

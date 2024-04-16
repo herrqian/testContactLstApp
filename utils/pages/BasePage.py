@@ -1,6 +1,7 @@
 from typing import Union
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from utils.logger.LoggerUtils import set_logger
@@ -16,7 +17,7 @@ class BasePage(object):
         self.driver = driver
         self.logger = set_logger(__name__)
 
-    def wait_element_to_be_clickable(self, driver, element_method: str, element_to_wait, wait_time=40):
+    def wait_element_to_be_clickable(self, driver, element_method: str, element_to_wait, wait_time=40) -> WebElement:
         """
         Method to wait till element to be clickable.
         :param driver: driver
@@ -43,7 +44,7 @@ class BasePage(object):
             self.logger.info("Pass valid method to find locator")
         return element
 
-    def wait_element_to_be_visible(self, driver, element_method, element_to_wait, wait_time=40):
+    def wait_element_to_be_visible(self, driver, element_method, element_to_wait, wait_time=40) -> WebElement:
         """
         Method to wait till element to be visible.
         :param driver: driver
@@ -71,7 +72,7 @@ class BasePage(object):
             self.logger.info("Pass valid method to find locator")
         return element
 
-    def find_element(self, driver, element_method, element_to_find, retry=2, wait_time=40):
+    def find_element(self, driver, element_method, element_to_find, retry=2, wait_time=40) -> WebElement:
         """
         Method to find the element.
         :param driver: driver

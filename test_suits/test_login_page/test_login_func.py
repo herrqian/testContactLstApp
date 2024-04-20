@@ -15,10 +15,8 @@ def test_signup_with_invalid_credentials(setup_signup):
     signup_page.signup(credentials)
     expected_res = True
     got_res = signup_page.is_signup_failed()
-    if expected_res == got_res:
-        signup_page.logger.info("PASSED")
-    else:
-        signup_page.logger.warn("FAILED")
+    assert expected_res == got_res, signup_page.logger.warn("FAILED")
+    signup_page.logger.info("PASSED")
 
 
 def test_sign_up_with_valid_credentials(setup_signup):
@@ -31,7 +29,5 @@ def test_title(setup_signin):
     got_res = login_page.title()
     login_page.logger.info(f"Expected Title of Website = {expected_res}")
     login_page.logger.info(f"Get Title of Website = {got_res}")
-    if expected_res == got_res:
-        login_page.logger.info("PASSED")
-    else:
-        login_page.logger.warn("FAILED")
+    assert expected_res == got_res, login_page.logger.warn("FAILED")
+    login_page.logger.info("PASSED")

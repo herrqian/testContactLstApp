@@ -1,19 +1,29 @@
-from typing import Union
-
 import pytest
 from selenium import webdriver
-from selenium.webdriver import Chrome, Firefox, Edge
+
+from utils.pages.LoginPage import LoginPage
+from utils.pages.SignUpPage import SignUpPage
 
 
 @pytest.fixture(scope="function")
-def setup_signin() -> Union[Chrome, Firefox, Edge]:
+def setup_signin() -> LoginPage:
     driver = webdriver.Chrome()
     driver.get("https://thinking-tester-contact-list.herokuapp.com/login")
-    return driver
+    login_page = LoginPage(driver)
+    yield login_page
+
+    driver.quit()
+    del login_page
+    del driver
 
 
 @pytest.fixture(scope="function")
-def setup_signup() -> Union[Chrome, Firefox, Edge]:
+def setup_signup() -> SignUpPage:
     driver = webdriver.Chrome()
     driver.get("https://thinking-tester-contact-list.herokuapp.com/addUser")
-    return driver
+    signup_page = SignUpPage(driver)
+    yield signup_page
+
+    driver.quit()
+    del signup_page
+    del driver

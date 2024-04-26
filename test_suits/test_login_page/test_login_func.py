@@ -1,10 +1,6 @@
-import time
-
 import pytest
 
-from test_suits.test_login_page.test_data import invalid_credentials, valid_credentials
-from utils.pages.LoginPage import LoginPage
-from utils.pages.SignUpPage import SignUpPage
+from test_suits.test_login_page.test_data import invalid_credentials, valid_credentials, login_data
 
 
 class TestSignUp:
@@ -43,4 +39,16 @@ class TestSignIn:
         assert expected_res == got_res, login_page.logger.warn("FAILED")
         login_page.logger.info("PASSED")
 
-
+    @pytest.mark.usefixtures("setup_signin")
+    @pytest.mark.parametrize("email, password, expected_res", login_data)
+    def test_login(self, setup_signin, email, password, expected_res):
+        login_page = setup_signin
+        login_page.login(email, password)
+        if expected_res == "SUCCEED":
+            assert login_page.is_login_succeed(), login_page.logger.warn("FAILED")
+            login_page.logger.info("PASSED")
+        elif expected_res == "FAILED":
+            assert login_page.is_login_failed(), login_page.logger.warn("FAILED")
+            login_page.logger.info("PASSED")
+        else:
+            assert False, login_page.logger.error("Unexpected input data")

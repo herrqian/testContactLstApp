@@ -4,8 +4,13 @@ from utils.data.common_data import LOCATE_BY_XPATH, LOCATE_BY_ID
 from utils.locators.signup_locators import FIRST_NAME, LAST_NAME, EMAIL, ERROR, PASSWORD, SUBMIT_BTN
 from utils.pages.BasePage import BasePage
 
+from utils.logger.LoggerUtils import set_logger
+
 
 class SignUpPage(BasePage):
+
+    def __init__(self, driver):
+        super().__init__(driver, set_logger(__name__))
 
     def check_title(self):
         return "Add User" in self.driver.title
@@ -45,5 +50,6 @@ class SignUpPage(BasePage):
         return "User validation failed" in err_text
 
     def is_signup_succeed(self):
+        self.wait_element_to_be_visible(self.driver, LOCATE_BY_XPATH, "/html/body/div/header/h1")
         self.logger.info(f"Title of this site = {self.driver.title}")
-        return "My contact" in self.driver.title
+        return "My Contacts" in self.driver.title

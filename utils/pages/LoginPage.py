@@ -1,9 +1,13 @@
 from utils.data.login_data import LOGIN_FAILED
+from utils.logger.LoggerUtils import set_logger
 from utils.pages.BasePage import BasePage
 from utils.locators.login_locators import *
 
 
 class LoginPage(BasePage):
+
+    def __init__(self, driver):
+        super().__init__(driver, set_logger(__name__))
 
     def login(self, email, password):
         """

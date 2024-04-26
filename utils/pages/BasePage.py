@@ -4,18 +4,17 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from utils.logger.LoggerUtils import set_logger
 from utils.data.common_data import *
 from selenium.webdriver import Chrome, Firefox, Edge
 
 
 class BasePage(object):
-    def __init__(self, driver: Union[Chrome, Firefox, Edge]):
+    def __init__(self, driver: Union[Chrome, Firefox, Edge], logger):
         """
         Initialize BaseClass.
         """
         self.driver = driver
-        self.logger = set_logger(__name__)
+        self.logger = logger
 
     def wait_element_to_be_clickable(self, driver, element_method: str, element_to_wait, wait_time=40) -> WebElement:
         """

@@ -28,6 +28,8 @@ def set_logger(name):
     stream.setLevel(logging.DEBUG)
     stream.setFormatter(stream_format)
 
+    if (_logger.hasHandlers()):
+        _logger.handlers.clear()
     # Adding all handlers to log file
     _logger.addHandler(file)
     _logger.addHandler(stream)

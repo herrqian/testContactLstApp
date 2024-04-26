@@ -1,7 +1,7 @@
 # login page
 TITLE = ""
-ERROR = ""
-EMAIL = ""
-PASSWORD = ""
-SUBMIT = ""
+ERROR = "error"
+EMAIL = "email"
+PASSWORD = "password"
+SUBMIT = "submit"
 SIGNUP = ""

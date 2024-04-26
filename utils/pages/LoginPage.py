@@ -1,7 +1,8 @@
+from utils.data.common_data import *
 from utils.data.login_data import LOGIN_FAILED
+from utils.locators.login_locators import *
 from utils.logger.LoggerUtils import set_logger
 from utils.pages.BasePage import BasePage
-from utils.locators.login_locators import *
 
 
 class LoginPage(BasePage):
@@ -16,6 +17,7 @@ class LoginPage(BasePage):
         """
         self._set_email(email)
         self._set_password(password)
+        self.logger.info("Click the submit button")
         self.find_element(self.driver, "ID", SUBMIT).click()
 
     def signup(self):
@@ -32,6 +34,7 @@ class LoginPage(BasePage):
         :return:
         """
         self.find_element(self.driver, "ID", EMAIL).clear()
+        self.logger.info(f"Set email to {email}")
         self.find_element(self.driver, "ID", EMAIL).send_keys(email)
 
     def _set_password(self, password: str):
@@ -41,10 +44,19 @@ class LoginPage(BasePage):
         :return:
         """
         self.find_element(self.driver, "ID", PASSWORD).clear()
+        self.logger.info(f"Set password to {password}")
         self.find_element(self.driver, "ID", PASSWORD).send_keys(password)
 
     def title(self):
         return self.driver.title
 
     def is_login_failed(self):
-        return self.find_element(self.driver, "ID", ERROR).text == LOGIN_FAILED
+        self.wait_element_to_be_visible(self.driver, LOCATE_BY_ID, ERROR)
+        err_text = self.find_element(self.driver, LOCATE_BY_ID, ERROR).text
+        self.logger.info(f"Error message in span = {err_text}")
+        return err_text == LOGIN_FAILED
+
+    def is_login_succeed(self):
+        self.wait_element_to_be_visible(self.driver, LOCATE_BY_XPATH, "/html/body/div/header/h1")
+        self.logger.info(f"Title of this site = {self.driver.title}")
+        return "My Contacts" in self.driver.title

@@ -1,10 +1,9 @@
 from selenium.webdriver.common.by import By
 
-from utils.data.common_data import LOCATE_BY_XPATH, LOCATE_BY_ID
+from utils.constants.common import LOCATE_BY_XPATH, LOCATE_BY_ID
 from utils.locators.signup_locators import FIRST_NAME, LAST_NAME, EMAIL, ERROR, PASSWORD, SUBMIT_BTN
-from utils.pages.BasePage import BasePage
-
 from utils.logger.LoggerUtils import set_logger
+from utils.pages.BasePage import BasePage
 
 
 class SignUpPage(BasePage):

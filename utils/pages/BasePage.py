@@ -1,11 +1,12 @@
 from typing import Union
 
+from selenium.webdriver import Chrome, Firefox, Edge
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from utils.data.common_data import *
-from selenium.webdriver import Chrome, Firefox, Edge
+from selenium.webdriver.support.wait import WebDriverWait
+
+from utils.constants.common import *
 
 
 class BasePage(object):

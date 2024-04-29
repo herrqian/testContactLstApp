@@ -1,5 +1,5 @@
-from utils.data.common_data import *
-from utils.data.login_data import LOGIN_FAILED
+from utils.constants.common import *
+from utils.constants.login import LOGIN_FAILED
 from utils.locators.login_locators import *
 from utils.logger.LoggerUtils import set_logger
 from utils.pages.BasePage import BasePage

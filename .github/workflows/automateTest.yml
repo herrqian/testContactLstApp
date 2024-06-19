@@ -31,5 +31,5 @@ jobs:
     - name: Run tests
       run: |
         ls
-        pytest /test_suits/test_login_page
+        pytest test_suits/test_login_page
 

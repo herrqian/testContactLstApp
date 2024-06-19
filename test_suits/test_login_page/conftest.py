@@ -5,13 +5,16 @@ from utils.pages.LoginPage import LoginPage
 from utils.pages.SignUpPage import SignUpPage
 
 
+def setup_driver():
+    selenium_remote_url = "http://localhost:4444/wd/hub"
+    options = webdriver.ChromeOptions()
+    driver = webdriver.Remote(command_executor=selenium_remote_url, options=options)
+    return driver
+
+
 @pytest.fixture(scope="function")
 def setup_signin() -> LoginPage:
-    opts = webdriver.ChromeOptions()
-    opts.add_argument("--headless")
-    opts.add_argument("--disable-dev-shm-usage")
-    opts.add_argument("--no-sandbox")
-    driver = webdriver.Chrome(options=opts)
+    driver = setup_driver()
     driver.get("https://thinking-tester-contact-list.herokuapp.com/login")
     login_page = LoginPage(driver)
     yield login_page
@@ -23,11 +26,7 @@ def setup_signin() -> LoginPage:
 
 @pytest.fixture(scope="function")
 def setup_signup() -> SignUpPage:
-    opts = webdriver.ChromeOptions()
-    opts.add_argument("--headless")
-    opts.add_argument("--disable-dev-shm-usage")
-    opts.add_argument("--no-sandbox")
-    driver = webdriver.Chrome(options=opts)
+    driver = setup_driver()
     driver.get("https://thinking-tester-contact-list.herokuapp.com/addUser")
     signup_page = SignUpPage(driver)
     yield signup_page

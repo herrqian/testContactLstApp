@@ -1,5 +1,6 @@
 import pytest
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 from test_suits.test_contact_features.test_data import COOKIE
 from utils.pages.AddContactPage import AddContactPage
@@ -9,7 +10,9 @@ from utils.pages.ContactListPage import ContactListPage
 
 @pytest.fixture(scope="function")
 def setup_add_contact() -> AddContactPage:
-    driver = webdriver.Chrome()
+    options = Options()
+    options.add_argument("--headless")
+    driver = webdriver.Chrome(options=options)
     # first of all, visit the login page or any page without permission
     # see https://stackoverflow.com/questions/59877561/selenium-common-exceptions-invalidcookiedomainexception-message-invalid-cookie
     driver.get("https://thinking-tester-contact-list.herokuapp.com/login")
@@ -27,7 +30,9 @@ def setup_add_contact() -> AddContactPage:
 
 @pytest.fixture(scope="function")
 def setup_contact_overview() -> ContactListPage:
-    driver = webdriver.Chrome()
+    options = Options()
+    options.add_argument("--headless")
+    driver = webdriver.Chrome(options=options)
     # first of all, visit the login page or any page without permission
     # see https://stackoverflow.com/questions/59877561/selenium-common-exceptions-invalidcookiedomainexception-message-invalid-cookie
     driver.get("https://thinking-tester-contact-list.herokuapp.com/login")
@@ -45,7 +50,9 @@ def setup_contact_overview() -> ContactListPage:
 
 @pytest.fixture(scope="function")
 def setup_contact_details() -> ContactDetailPage:
-    driver = webdriver.Chrome()
+    options = Options()
+    options.add_argument("--headless")
+    driver = webdriver.Chrome(options=options)
     driver.get("https://thinking-tester-contact-list.herokuapp.com/login")
     # add cookie
     driver.add_cookie(COOKIE)

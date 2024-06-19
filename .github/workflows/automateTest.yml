@@ -1,4 +1,4 @@
-name: Python Selenium Tests
+name: CI
 
 on: [push, pull_request]
 
@@ -6,29 +6,28 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      selenium:
+        image: selenium/standalone-chrome:latest
+        ports:
+          - 4444:4444
+
+    env:
+      SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v2
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v2
       with:
-        python-version: '3.8'  # Replace with the specific version you need, e.g., '3.9'
+        python-version: '3.12'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pytest selenium
-
-    - name: Install Chrome
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y wget unzip
-        wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip
-        sudo unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
-        sudo apt-get install -y xvfb google-chrome-stable
+        pip install selenium pytest
 
     - name: Run tests
       run: |
-        xvfb-run -a pytest
-
+        pytest test_suits/test_login_page/test_login_func.py
